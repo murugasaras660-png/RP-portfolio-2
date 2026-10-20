@@ -1,0 +1,182 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+
+@theme {
+  --font-geist: "Geist Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-bg-card: var(--bg-card);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+}
+
+@utility shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding-inline: clamp(20px, 5vw, 56px);
+  box-sizing: border-box;
+}
+
+:root {
+  /* LIGHT: warm paper desk */
+  --bg: #E9E6DF;
+  --bg-elev: #F0EEE8;
+  --bg-card: #F4F2EC;
+  --ink: #17141D;
+  --ink-dim: #56525F;
+  --ink-faint: #8C8895;
+  --line: rgba(23, 20, 29, 0.12);
+  --paper: #F2F1EE;
+  --paper-ink: #16131C; /* physical paper: SAME in both themes */
+  --shadow-rgb: 23, 20, 29;
+
+  --font-sans: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+.dark {
+  /* DARK: ink violet */
+  --bg: #120F17;
+  --bg-elev: #181520;
+  --bg-card: #1B1823;
+  --ink: #EDEBE6;
+  --ink-dim: #A19EAB;
+  --ink-faint: #6E6B78;
+  --line: rgba(237, 235, 230, 0.10);
+  --shadow-rgb: 0, 0, 0; /* only for shadows, never a surface */
+}
+
+@layer base {
+  *, ::before, ::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Subtle luxury film grain */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Accessible focus styling */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--ink);
+  color: var(--paper-ink);
+}
+
+/* Utility classes */
+.font-geist {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-serif, .font-editorial {
+  font-family: "Instrument Serif", Georgia, serif;
+}
+
+/* Section Rhythm Utility */
+.section-rhythm {
+  padding-block: clamp(56px, 14vw, 176px);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
+}
+
+/* View Transition API circle reveal setup */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Zero transition paint lag during theme switch */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
+
+/* Section anchors clearance under 72px fixed navbar (Item 6 requirement) */
+section[id],
+main [id] {
+  scroll-margin-top: 88px;
+}
+
+/* Prevent flowing menu meta text overlap on mobile */
+@media (max-width: 640px) {
+  .flowing-menu__meta {
+    display: none !important;
+  }
+}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" class="dark" style="color-scheme: dark;">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Rithick Prasath — Developer Portfolio</title>
+    <meta name="description" content="CSE student, builder, learner. Crafting high-performance digital experiences and intelligent software." />
+    <meta name="theme-color" content="#120F17" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Prevent Theme Flash -->
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('rp-theme');
+          var theme = stored ? stored : 'dark';
+          var root = document.documentElement;
+          if (theme === 'dark') {
+            root.classList.add('dark');
+            root.classList.remove('light');
+            root.style.colorScheme = 'dark';
+          } else {
+            root.classList.remove('dark');
+            root.classList.add('light');
+            root.style.colorScheme = 'light';
+          }
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute('content', theme === 'dark' ? '#120F17' : '#E9E6DF');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rpportfolio01.netlify.app" />
+    <meta property="og:title" content="Rithick Prasath — Developer Portfolio" />
+    <meta property="og:description" content="CSE student, builder, learner. Crafting high-performance digital experiences and intelligent software." />
+    <meta property="og:image" content="https://rpportfolio01.netlify.app/og.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://rpportfolio01.netlify.app" />
+    <meta property="twitter:title" content="Rithick Prasath — Developer Portfolio" />
+    <meta property="twitter:description" content="CSE student, builder, learner. Crafting high-performance digital experiences and intelligent software." />
+    <meta property="twitter:image" content="https://rpportfolio01.netlify.app/og.png" />
+  </head>
+  <body class="bg-[var(--bg)] text-[var(--ink)] antialiased selection:bg-[var(--ink)] selection:text-[var(--paper-ink)]">
+    <!-- Zero-Flash Static Preloader (Paints instantly on initial HTML render) -->
+    <div id="static-preloader" style="position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);pointer-events:none;">
+      <span style="font-family:'Geist Variable',sans-serif;font-size:clamp(80px,16vw,180px);font-weight:600;letter-spacing:-0.05em;line-height:1;user-select:none;opacity:0.9;">RP</span>
+    </div>
+    <script>
+      (function(){
+        try {
+          if (sessionStorage.getItem('rp-intro-seen') === '1' || window.location.search.indexOf('intro=0') !== -1) {
+            var el = document.getElementById('static-preloader');
+            if (el) el.style.display = 'none';
+          }
+        } catch(e){}
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
